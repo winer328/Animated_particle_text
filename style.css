@@ -1,6 +1,7 @@
 body {
     font-family: 'Titillium Web', sans-serif;
     margin: 0;
+    min-height: 3000px;
     /* overflow: hidden; */
 }
 .triggers {
@@ -11,7 +12,7 @@ body {
     text-align: center;
     transform: translateX(-50%);
     width: 100%;
-    z-index: 10;
+    z-index: 100;
 }
 .triggers span {
     cursor: pointer;
@@ -28,17 +29,8 @@ body {
 .triggers span:hover {
     color: red;
 }
-.main {
-    width: 100vw;
-    color: white;
-    z-index: 99;
-    position: absolute;
-    width: 90%;
-    margin: 0px auto;
-    padding: 120px 5%;
-}
-.main p {
-    margin-top: 300px;
+.hide {
+    display: none;
 }
 canvas {
     width: 100%;

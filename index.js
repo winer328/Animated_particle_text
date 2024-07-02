@@ -3,7 +3,7 @@ const particleCount = 6000;
 		
 const particleSize = .3;
 
-const defaultAnimationSpeed = 0.1,
+const defaultAnimationSpeed = 1,
 		morphAnimationSpeed = 1,
 	  	color = '#00CCFF';
 
@@ -33,15 +33,15 @@ var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
 
 camera.position.y = -45;
-camera.position.z = 45;
+camera.position.z = 150;
 
 // Lighting
 var light = new THREE.AmbientLight( 0xFFFFFF, 1 );
 scene.add( light );
 
 // Orbit Controls
-var controls = new THREE.OrbitControls( camera );
-controls.update();
+// var controls = new THREE.OrbitControls( camera );
+// controls.update();
 
 // Particle Vars
 var particles = new THREE.Geometry();
@@ -140,11 +140,11 @@ let animationVars = {
 
 function animate() {
 	
-	particleSystem.rotation.y += animationVars.speed;
+	particleSystem.rotation.x += animationVars.speed;
 	particles.verticesNeedUpdate = true; 
 	
-	camera.position.z = animationVars.rotation;
-	camera.position.y = animationVars.rotation;
+	// camera.position.z = animationVars.rotation;
+	// camera.position.y = animationVars.rotation;
 	camera.lookAt( scene.position );
 	
 	particleSystem.material.color = new THREE.Color( animationVars.color );
@@ -154,6 +154,27 @@ function animate() {
 }
 
 animate();
+
+function scrollAnimation(){
+    let t = document.body.getBoundingClientRect().top;
+    console.log(t)
+    
+    if(Math.abs(t) < (document.querySelector('body').scrollHeight - 600) / 3) {
+		morphTo(texts[0].particles, triggers[0].dataset.color);
+    } else if(Math.abs(t) < (document.querySelector('body').scrollHeight - 600) / 3 * 2 - 400) {
+		morphTo(texts[1].particles, triggers[1].dataset.color);
+    } else {
+		morphTo(texts[2].particles, triggers[2].dataset.color);
+    }
+
+    t *= 1;
+    // particleSystem.rotation.x = animationVars.speed * t;
+    // camera.position.z = animationVars.rotation * t;
+	// camera.position.y = animationVars.rotation * t;
+	camera.lookAt( scene.position );
+}
+
+document.body.onscroll = scrollAnimation;
 
 function morphTo (newParticles, color = '#FFFFFF') {
 	
@@ -180,7 +201,7 @@ function morphTo (newParticles, color = '#FFFFFF') {
 		})
 	}
 	
-	console.log(animationVars.rotation)
+	// console.log(animationVars.rotation)
 	
 	TweenMax.to(animationVars, 2, {
 		ease: Elastic.easeOut.config( 0.1, .3), 
