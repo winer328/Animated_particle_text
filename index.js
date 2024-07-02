@@ -11,9 +11,10 @@ const defaultAnimationSpeed = 1,
 const triggers = document.getElementsByTagName('span')
 
 // Renderer
-var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor(0x000000, 0);
 document.body.appendChild( renderer.domElement );
 
 // Ensure Full Screen on Resize
@@ -28,6 +29,7 @@ window.addEventListener('resize', fullScreen, false)
 
 // Scene
 var scene = new THREE.Scene();
+scene.background = null;
 
 // Camera and position
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
@@ -36,7 +38,7 @@ camera.position.y = -45;
 camera.position.z = 150;
 
 // Lighting
-var light = new THREE.AmbientLight( 0xFFFFFF, 1 );
+var light = new THREE.AmbientLight( 0xFFFFFF00, 1 );
 scene.add( light );
 
 // Orbit Controls
@@ -157,11 +159,11 @@ animate();
 
 function scrollAnimation(){
     let t = document.body.getBoundingClientRect().top;
-    console.log(t)
+    // console.log(t)
     
     if(Math.abs(t) < (document.querySelector('body').scrollHeight - 600) / 3) {
 		morphTo(texts[0].particles, triggers[0].dataset.color);
-    } else if(Math.abs(t) < (document.querySelector('body').scrollHeight - 600) / 3 * 2 - 400) {
+    } else if(Math.abs(t) < (document.querySelector('body').scrollHeight - 600) / 3 * 2) {
 		morphTo(texts[1].particles, triggers[1].dataset.color);
     } else {
 		morphTo(texts[2].particles, triggers[2].dataset.color);
@@ -212,3 +214,31 @@ function slowDown () {
 	TweenMax.to(animationVars, 0.3, {ease:
 Power2.easeOut, speed: normalSpeed, delay: 0.2});
 }
+
+
+// Add light effect with cursor
+import { particlesCursor } from 'https://unpkg.com/threejs-toys@0.0.8/build/threejs-toys.module.cdn.min.js'
+
+const pc = particlesCursor({
+    el: document.getElementById('app'),
+    gpgpuSize: 512,
+    colors: [0x00ff00, 0x0000ff],
+    color: 0xff0000,
+    coordScale: 0.5,
+    noiseIntensity: 0.0001,
+    noiseTimeCoef: 0.0001,
+    pointSize: 3,
+    pointDecay: 0.0025,
+    sleepRadiusX: 250,
+    sleepRadiusY: 250,
+    sleepTimeCoefX: 0.001,
+    sleepTimeCoefY: 0.002
+})
+
+document.body.addEventListener('click', () => {
+    pc.uniforms.uColor.value.set(Math.random() * 0xffffff)
+    pc.uniforms.uCoordScale.value = 0.001 + Math.random() * 2
+    pc.uniforms.uNoiseIntensity.value = 0.0001 + Math.random() * 0.001
+    pc.uniforms.uPointSize.value = 1 + Math.random() * 10
+})
+// End of light effect with cursor

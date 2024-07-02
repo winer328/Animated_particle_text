@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>CodePen - Three Particle Morphing Text</title>
     <link rel="stylesheet" href="assets/reset.min.css">
+    <!-- <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&amp;display=swap'> -->
+    <link rel="stylesheet" href="lib/css2.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="style.css">
     <script src="assets/prefixfree.min.js"></script>
 </head>
@@ -15,6 +18,8 @@
 	<span data-disabled="true" data-color="#D32A7B">Work</span>
 	<span data-disabled="true" data-color="#2AD37A">Together</span>
 </div>
+<div id="app">
+</div>
 
 <!-- partial -->
 <script src='lib/three.js'></script>
@@ -22,7 +27,7 @@
 <script src='lib/OrbitControls.js'></script>
 <script src='lib/GeometryUtils.js'></script>
 
-<script  src="./index.js"></script>
+<script type="module" src="./index.js"></script>
 
 </body>
 </html>
