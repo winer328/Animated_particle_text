@@ -33,16 +33,11 @@ body {
     display: none;
 }
 canvas:last-child {
-    width: 100%;
-    height: 100%;
     display: block;
     position: fixed;
     top: 0;
     left: 0;
 }
-
-
-
 
 #app {
     overflow: hidden;
@@ -59,26 +54,9 @@ canvas:last-child {
     /* z-index: 100; */
 }
 
-#app h1 {
-    --fontSize: 60px;
-    --lineHeight: 80px;
-    width: auto;
-    height: calc(2 * var(--lineHeight));
-    line-height: var(--lineHeight);
-    margin: calc(50vh - var(--lineHeight)) auto 0;
-    font-size: var(--fontSize);
-}
-
-#app a {
-    margin-top: 10px;
-    display: inline-block;
-    text-decoration: none;
-    color: #fff;
-}
-
-#app canvas {
+/* #app canvas {
     display: block;
     position: fixed;
     z-index: -1;
     top: 0;
-}
+} */
