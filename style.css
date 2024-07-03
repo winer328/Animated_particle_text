@@ -4,6 +4,14 @@ body {
     min-height: 3000px;
     /* overflow: hidden; */
 }
+.logo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 100px;
+    height: 100px;
+    z-index: 100;
+}
 .triggers {
     bottom: 20px;
     color: white;
